@@ -28,7 +28,7 @@ passport.use(
                     // we already have a record with the given ID
                     done(null, existingUser);
                 } else {
-                    //
+                    // we dont have a record with the given ID, create it
                     new User({ googleId: profile.id }).save().then(user => {
                         done(null, user);
                     });
