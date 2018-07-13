@@ -8,7 +8,7 @@ require('./services/passport');
 
 // connect to mlab hosted db
 mongoose.connect(keys.mongoURI);
-
+// setup the routes
 const authRoutes = require('./routes/authRoutes');
 
 const app = express();
