@@ -1,3 +1,5 @@
+// no need to specify a relative pack, webpack asumes trying to import a module
+import 'materialize-css/dist/css/materialize.min.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
