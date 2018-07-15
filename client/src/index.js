@@ -4,6 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
+import reduxThunk from 'readux-thunk';
 
 import App from './components/App';
 import reducers from './reducers';
@@ -11,7 +12,7 @@ import reducers from './reducers';
 // first arguement to create store is all the reducer inside our App
 // 2nd argument is the inital state of the app
 // 3rd argument is for applyMiddleware
-const store = createStore(reducers, {}, applyMiddleware());
+const store = createStore(reducers, {}, applyMiddleware(reduxThunk));
 
 ReactDOM.render(
     <Provider store={store}>
