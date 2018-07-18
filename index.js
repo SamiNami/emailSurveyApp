@@ -2,7 +2,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
-// const bodyParser = require('body-parser');  not safe to use here, remoe from node modules also...
 const keys = require('./config/keys');
 require('./models/user');
 require('./services/passport');
