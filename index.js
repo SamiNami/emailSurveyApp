@@ -2,16 +2,17 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
+// const bodyParser = require('body-parser');  not safe to use here, remoe from node modules also...
 const keys = require('./config/keys');
 require('./models/user');
 require('./services/passport');
 
 // connect to mlab hosted db
 mongoose.connect(keys.mongoURI);
-// setup the routes
-const authRoutes = require('./routes/authRoutes');
 
 const app = express();
+
+app.use(express.json());
 
 app.use(
     cookieSession({
@@ -23,7 +24,8 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-authRoutes(app);
+require('./routes/authRoutes')(app);
+require('./routes/billingRoutes')(app);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT);
