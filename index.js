@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
 const keys = require('./config/keys');
-require('./models/user');
-require('./models/survey');
+require('./models/User');
+require('./models/Survey');
 require('./services/passport');
 
 // connect to mlab hosted db
