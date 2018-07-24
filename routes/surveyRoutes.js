@@ -25,5 +25,6 @@ module.exports = app => {
         // first argument is a model with the subject and the recipients,
         // second argument is for the body, a html template.
         const mailer = new Mailer(survey, surveyTemplate(survey));
+        mailer.send();
     });
 };

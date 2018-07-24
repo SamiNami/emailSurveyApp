@@ -9,6 +9,9 @@ import reduxThunk from 'redux-thunk';
 import App from './components/App';
 import reducers from './reducers';
 
+import axios from 'axios';
+window.axios = axios;
+
 // first arguement to create store is all the reducer inside our App
 // 2nd argument is the inital state of the app
 // 3rd argument is for applyMiddleware
