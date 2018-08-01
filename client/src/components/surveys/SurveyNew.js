@@ -9,7 +9,11 @@ class SurveyNew extends Component {
 
     renderContent() {
         if (this.state.showFromReview) {
-            return <SurveyFormReview />;
+            return (
+                <SurveyFormReview
+                    onCancel={() => this.setState({ showFromReview: false })}
+                />
+            );
         }
         return (
             <SurveyForm
