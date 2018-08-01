@@ -1,6 +1,7 @@
 const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 export default emails => {
+    emails = removeLastComma(emails);
     const invalidEmails = emails
         .split(',')
         .map(email => email.trim())
@@ -11,3 +12,7 @@ export default emails => {
         return `These emails are invalid ${invalidEmails}`;
     }
 };
+
+function removeLastComma(str) {
+    return str.replace(/,(\s+)?$/, '');
+}
