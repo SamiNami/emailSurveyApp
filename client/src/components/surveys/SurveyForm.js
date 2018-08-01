@@ -52,11 +52,13 @@ class SurveyForm extends Component {
 }
 
 const validate = values => {
-    const error = {};
+    const errors = {};
 
-    if (!values.title) {
-        errors.title = 'You must provide a title';
-    }
+    FIELDS.forEach(({ name, label }) => {
+        if (!values[name]) {
+            errors[name] = `You must provide a value for ${label}`;
+        }
+    });
 
     return errors;
 };
