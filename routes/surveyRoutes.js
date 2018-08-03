@@ -1,5 +1,8 @@
-const mongoose = require('mongoose');
+const _ = require('lodash');
+const { Path } = require('path-parser');
+const { URL } = require('url');
 
+const mongoose = require('mongoose');
 const requireLogin = require('../middlewares/requireLogin');
 const requireCredits = require('../middlewares/requireCredits');
 const Mailer = require('../services/Mailer');
@@ -8,8 +11,18 @@ const surveyTemplate = require('../services/emailTemplates/surveyTemplate');
 const Survey = mongoose.model('surveys');
 
 module.exports = app => {
-    app.get('/api/surveys/thanks', (get, req) => {
-        req.send('Thanks for voting!');
+    app.get('/api/surveys/thanks', (get, req) => {});
+
+    app.post('/api/surveys/webhooks', (req, res) => {
+        console.log(req.body);
+        const events = req.body.map(event => {
+            console.log('-----', event);
+            const pathname = new URL(event.url).pathname;
+            console.log('PATHNAME:', pathname);
+            const p = new Path('/api/surveys/:surveyId/:choice');
+            console.log(p.test(pathname));
+        });
+        // res.send({});
     });
 
     app.post('/api/surveys', requireLogin, requireCredits, async (req, res) => {
@@ -39,10 +52,5 @@ module.exports = app => {
         } catch (err) {
             res.status(422).send(err);
         }
-    });
-
-    app.post('/api/surveys/webhooks', (req, res) => {
-        console.log(req.body);
-        res.send({});
     });
 };
