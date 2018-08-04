@@ -14,23 +14,25 @@ module.exports = app => {
     app.get('/api/surveys/thanks', (get, req) => {});
 
     app.post('/api/surveys/webhooks', (req, res) => {
-        console.log('boom');
-        const events = req.body.map((email, url) => {
-            const pathname = new URL(url).pathname;
-            const p = new Path('/api/surveys/:surveyId/:choice');
-            // will either be a {} or null
-            const match = p.test(pathname);
-            if (match) {
-                return {
-                    email,
-                    surveyId: match.surveyId,
-                    choice: match.choice
-                };
-            }
-        });
-        // compact removes all undefined records
-        const compacEvent = _.compact(event);
-        const uniqueEvent = _.uniqBy(compacEvent, 'email', 'surveyId');
+        const p = new Path('/api/surveys/:surveyId/:choice');
+
+        const events = _
+            .chain(req.body)
+            .map(({ email, url }) => {
+                const match = p.test(new URL(url).pathname);
+                if (match) {
+                    return {
+                        email,
+                        surveyId: match.surveyId,
+                        choice: match.choice
+                    };
+                }
+            })
+            // compact removes all undefined records
+            .compact()
+            .uniqBy('email', 'surveyId')
+            .value();
+        console.log(events);
     });
 
     app.post('/api/surveys', requireLogin, requireCredits, async (req, res) => {
