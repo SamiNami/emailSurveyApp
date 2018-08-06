@@ -37,7 +37,6 @@ module.exports = app => {
                     };
                 }
             })
-            // compact removes all undefined records
             .compact()
             .uniqBy('email', 'surveyId')
             .each(({ surveyId, email, choice }) => {
@@ -49,15 +48,15 @@ module.exports = app => {
                         }
                     },
                     {
-                        // increment the choice by one
                         $inc: { [choice]: 1 },
-                        // change the found responded property to true
                         $set: { 'recipients.$.responded': true },
                         lastResponded: new Date()
                     }
                 ).exec();
             })
             .value();
+
+        res.send({});
     });
 
     app.post('/api/surveys', requireLogin, requireCredits, async (req, res) => {
