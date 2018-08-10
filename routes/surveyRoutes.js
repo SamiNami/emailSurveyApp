@@ -90,7 +90,20 @@ module.exports = app => {
 
     app.delete('/api/surveys', requireLogin, async (req, res) => {
         // check that the user is trying to delte one of his own surveys
-        console.log('userId', req.user.id);
-        console.log('body', req.body);
+        const survey = await Survey.findOne({ _id: req.body.surveyId });
+        if (!survey) {
+            return res.status(400);
+        }
+        // check that the correct user is trying to delete the survey
+        if (String(req.user.id) !== String(survey._user)) {
+            return res.status(403);
+        }
+
+        const deleted = await survey.remove();
+        const surveys = await Survey.find({ _user: req.user.id }).select({
+            recipients: false
+        });
+
+        res.send(surveys);
     });
 };
