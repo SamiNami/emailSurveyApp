@@ -87,4 +87,10 @@ module.exports = app => {
             res.status(422).send(err);
         }
     });
+
+    app.post('/api/surveys/delete', requireLogin, async (req, res) => {
+        // check that the user is trying to delte one of his own surveys
+        console.log('userId', req.user.id);
+        console.log('body', req.body);
+    });
 };
