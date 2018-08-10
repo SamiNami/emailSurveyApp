@@ -60,7 +60,7 @@ module.exports = app => {
     });
 
     app.post('/api/surveys', requireLogin, requireCredits, async (req, res) => {
-        const { title, subject, body, recipients } = req.body;
+        const { title, subject, body, recipients, email } = req.body;
 
         const survey = new Survey({
             title,
@@ -71,7 +71,7 @@ module.exports = app => {
                 .map(email => ({ email: email.trim() })),
             _user: req.user.id,
             dateSent: Date.now(),
-            email: 'sami.peralahti@gmail.com'
+            email
         });
         // Send out email!
         // first argument is a model with the subject and the recipients,
