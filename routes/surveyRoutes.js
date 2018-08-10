@@ -70,7 +70,8 @@ module.exports = app => {
                 .split(',')
                 .map(email => ({ email: email.trim() })),
             _user: req.user.id,
-            dateSent: Date.now()
+            dateSent: Date.now(),
+            email: 'kappa@gmail.com'
         });
         // Send out email!
         // first argument is a model with the subject and the recipients,
