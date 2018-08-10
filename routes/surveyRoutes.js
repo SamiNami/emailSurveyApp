@@ -71,7 +71,7 @@ module.exports = app => {
                 .map(email => ({ email: email.trim() })),
             _user: req.user.id,
             dateSent: Date.now(),
-            email: 'kappa@gmail.com'
+            email: 'sami.peralahti@gmail.com'
         });
         // Send out email!
         // first argument is a model with the subject and the recipients,
