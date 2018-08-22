@@ -73,3 +73,5 @@ typings/
 .serverless
 
 dev.js
+.DS_Store
+/DS_Store
